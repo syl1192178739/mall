@@ -1,11 +1,11 @@
 <template>
-   <swiper>
-     <swiper-item v-bind:v-for="item in banners">
-       <a :href="item.link">
-         <img :src="item.image" alt="">
-       </a>
-     </swiper-item>
-   </swiper>
+  <swiper>
+    <swiper-item v-for="item in banners">
+      <a :href="item.link">
+        <img :src="item.image" alt="">
+      </a>
+    </swiper-item>
+  </swiper>
 </template>
  
 <script>
@@ -27,6 +27,6 @@ export default {
 }
 </script>
  
-<style scoped lang = "sass">
+<style scoped>
  
 </style>
