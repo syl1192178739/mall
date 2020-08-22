@@ -3,6 +3,9 @@
     <NavBar class="home-nav"><div slot="center">购物街</div></NavBar>
     <home-swiper :banners="banners"></home-swiper>
     <recommend-view :recommends="recommends"></recommend-view>
+		<feature-view></feature-view>
+		<tab-control :titles="titles"></tab-control>
+		<div><ul><li>ddd</li><li>ddd</li><li>ddd</li><li>ddd</li><li>ddd</li><li>ddd</li><li>ddd</li></ul></div>
   </div>
 </template>
 
@@ -10,13 +13,17 @@
 import NavBar from 'components/common/navbar/NavBar.vue'
 import HomeSwiper from './childComps/HomeSwiper'
 import RecommendView from './childComps/RecommendView'
+import FeatureView from './childComps/FeatureView.vue'
+import TabControl from 'components/content/tabControl/TabControl.vue'
 import {getHomeMultidata} from 'network/home'
   export default {
     name: "Home",
     components: {
       NavBar,
       HomeSwiper,
-      RecommendView
+      RecommendView,
+			FeatureView,
+			TabControl
     },
     data() {
       return {
@@ -28,7 +35,8 @@ import {getHomeMultidata} from 'network/home'
           'sell': {page: 0, list: []},
         },
         currentType: 'pop',
-        isShowBackTop: false
+        isShowBackTop: false,
+				titles:['流行','新款','精选']
       }
     },
     computed: {
