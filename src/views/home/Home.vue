@@ -4,7 +4,8 @@
     <home-swiper :banners="banners"></home-swiper>
     <recommend-view :recommends="recommends"></recommend-view>
 		<feature-view></feature-view>
-		<tab-control :titles="titles"></tab-control>
+		<tab-control :titles="titles" @click="tabClick"></tab-control>
+		<goods-list :goods="goods['pop'].list"></goods-list>
 		<div><ul><li>ddd</li><li>ddd</li><li>ddd</li><li>ddd</li><li>ddd</li><li>ddd</li><li>ddd</li></ul></div>
   </div>
 </template>
@@ -15,7 +16,8 @@ import HomeSwiper from './childComps/HomeSwiper'
 import RecommendView from './childComps/RecommendView'
 import FeatureView from './childComps/FeatureView.vue'
 import TabControl from 'components/content/tabControl/TabControl.vue'
-import {getHomeMultidata} from 'network/home'
+import GoodsList from 'components/content/goods/GoodsList.vue'
+import {getHomeMultidata,getHomeGoods} from 'network/home'
   export default {
     name: "Home",
     components: {
@@ -23,7 +25,8 @@ import {getHomeMultidata} from 'network/home'
       HomeSwiper,
       RecommendView,
 			FeatureView,
-			TabControl
+			TabControl,
+			GoodsList
     },
     data() {
       return {
@@ -43,6 +46,9 @@ import {getHomeMultidata} from 'network/home'
     },
     created() {
       this.getHomeMultidata();
+			this.getHomeGoods('pop');
+			this.getHomeGoods('new');
+			this.getHomeGoods('sell');
     },
     methods: {
 			getHomeMultidata() {
@@ -50,7 +56,27 @@ import {getHomeMultidata} from 'network/home'
           this.banners = res.data.banner.list;
           this.recommends = res.data.recommend.list;
         }).catch(err=>console.log(err))
-      }
+      },
+			getHomeGoods(type){
+				const page=this.goods[type].page+1;
+				getHomeGoods(type,page).then(res=>{
+					this.goods[type].list.push(...res.data.list);
+					this.goods[type].page++;
+				}).catch(err=>{console.log(err)})
+			},
+			tabClick(index){
+				switch (index) {
+				  case 0:
+				    this.currentType = 'pop'
+				    break
+				  case 1:
+				    this.currentType = 'new'
+				    break
+				  case 2:
+				    this.currentType = 'sell'
+				    break
+				}
+			}
 		}
   }
 </script>
