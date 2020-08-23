@@ -4,8 +4,8 @@
     <home-swiper :banners="banners"></home-swiper>
     <recommend-view :recommends="recommends"></recommend-view>
 		<feature-view></feature-view>
-		<tab-control :titles="titles" @click="tabClick"></tab-control>
-		<goods-list :goods="goods['pop'].list"></goods-list>
+		<tab-control :titles="titles" @tabClick="tabClick"></tab-control>
+		<goods-list :goods="showGoods"></goods-list>
 		<div><ul><li>ddd</li><li>ddd</li><li>ddd</li><li>ddd</li><li>ddd</li><li>ddd</li><li>ddd</li></ul></div>
   </div>
 </template>
@@ -43,6 +43,9 @@ import {getHomeMultidata,getHomeGoods} from 'network/home'
       }
     },
     computed: {
+			showGoods() {
+			  return this.goods[this.currentType].list
+			}
     },
     created() {
       this.getHomeMultidata();
