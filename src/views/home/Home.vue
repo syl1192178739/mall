@@ -17,6 +17,7 @@
       <tab-control :titles="titles" @tabClick="tabClick"></tab-control>
       <goods-list :goods="showGoods"></goods-list>
     </scroll>
+    <back-top @click.native="backClick" v-show="isShowBackTop" />
   </div>
 </template>
 
@@ -102,7 +103,7 @@ export default {
       }
     },
     backClick() {
-      this.$refs.scroll.scrollTo(0, 0);
+      this.$refs.scroll.scrollTo(0, 0,600);
     },
     contentScroll(position) {
       this.isShowBackTop = -position.y > 1000;
@@ -110,6 +111,12 @@ export default {
     loadMore() {
       this.getHomeGoods(this.currentType);
     },
+  },
+  mounted() {
+    //监听图片加载完成
+    this.$bus.$on("itemImageLoad", () => {
+      this.$refs.scroll.refresh();
+    });
   },
 };
 </script>

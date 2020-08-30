@@ -7,6 +7,8 @@
 </template>
  
 <script>
+import BScroll from "better-scroll";
+
 export default {
   name: "Scroll",
   props: {
@@ -33,6 +35,7 @@ export default {
     });
     // 2.监听滚动的位置
     this.scroll.on("scroll", (position) => {
+      // console.log(position);
       this.$emit("scroll", position);
     });
     // 3.监听上拉事件
@@ -42,10 +45,13 @@ export default {
   },
   methods: {
     scrollTo(x, y, time = 360) {
-      this.scroll.scrollTo(x, y, time);
+      this.scroll && this.scroll.scrollTo(x, y, time);
     },
     finishPullUp() {
       this.scroll.finishPullUp();
+    },
+    refresh() {
+      this.scroll && this.scroll.refresh();
     },
   },
 };
