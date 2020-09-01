@@ -31,6 +31,7 @@ import GoodsList from "components/content/goods/GoodsList";
 import Scroll from "components/common/scroll/Scroll";
 import BackTop from "components/content/backTop/BackTop";
 import { getHomeMultidata, getHomeGoods } from "network/home";
+import { debounce } from "common/utils";
 export default {
   name: "Home",
   components: {
@@ -103,7 +104,7 @@ export default {
       }
     },
     backClick() {
-      this.$refs.scroll.scrollTo(0, 0,600);
+      this.$refs.scroll.scrollTo(0, 0, 600);
     },
     contentScroll(position) {
       this.isShowBackTop = -position.y > 1000;
@@ -114,8 +115,10 @@ export default {
   },
   mounted() {
     //监听图片加载完成
+    const refresh = debounce(this.$refs.scroll.refresh, 50);
     this.$bus.$on("itemImageLoad", () => {
-      this.$refs.scroll.refresh();
+      //this.$refs.scroll.refresh();
+      refresh();
     });
   },
 };
