@@ -134,12 +134,12 @@ export default {
 .home-nav {
   background-color: var(--color-tint);
   color: #fff;
-
-  position: fixed;
+/* 在使用浏览器原生滚动时,为了让导航不跟随滚动添加的以下样式,现在使用的better-scroll局部滚动,以下样式没用了 */
+  /* position: fixed;
   left: 0;
   right: 0;
   top: 0;
-  z-index: 9;
+  z-index: 9; */
 }
 
 .tab-control {
